@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rohit Kumar Mandal - Computer Engineer & Full-Stack Developer</title>
+    <link rel="stylesheet" href="style.css">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Space+Grotesk:wght@300;400;500;600;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <span class="logo-text">RM</span>
+            </div>
+            <ul class="nav-menu" id="nav-menu">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#skills" class="nav-link">Skills</a></li>
+                <li><a href="#projects" class="nav-link">Projects</a></li>
+                <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+            </ul>
+            <div class="hamburger" id="hamburger">
+                <span class="bar"></span>
+                <span class="bar"></span>
+                <span class="bar"></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero">
+        <div class="hero-background">
+            <div class="particles" id="particles"></div>
+            <div class="gradient-overlay"></div>
+        </div>
+        <div class="hero-content">
+            <div class="hero-grid">
+                <div class="hero-text">
+                    <p class="hero-greeting">Hello, I'm</p>
+                    <h1 class="hero-name glitch" data-text="Rohit Kumar Mandal">Rohit Kumar Mandal</h1>
+                    <h2 class="hero-title">I am a <span id="typing-text"></span></h2>
+                    <p class="hero-tagline">Crafting scalable digital solutions with precision and passion.</p>
+
+                    <div class="hero-buttons">
+                        <a href="#projects" class="btn btn-primary">View Work</a>
+                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
+                        <a href="RohitMandal_CV.pdf" download class="btn btn-outline">Download CV <i
+                                class="fas fa-download"></i></a>
+                    </div>
+
+                    <div class="social-links-hero">
+                        <a href="https://github.com/RohitMandal-33" target="_blank" class="social-icon"><i
+                                class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/rohit-mandal-952801249" target="_blank" class="social-icon"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="mailto:mandal123rohit@gmail.com" class="social-icon"><i
+                                class="fas fa-envelope"></i></a>
+                    </div>
+                </div>
+
+                <div class="hero-image-container">
+                    <div class="hero-image-blob"></div>
+                    <div class="hero-image-placeholder">
+                        <img src="Rohitpfp.png" alt="Rohit Kumar Mandal" class="hero-image-img">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="scroll-indicator">
+            <div class="mouse">
+                <div class="wheel"></div>
+            </div>
+            <span>Scroll Down</span>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about section">
+        <div class="container">
+            <h2 class="section-title" data-text="About Me">About Me</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p class="about-description">
+                        Detail-oriented <strong>Computer Engineering graduate</strong> skilled in <strong>full-stack
+                            development</strong>, <strong>mobile app development</strong>, and <strong>real-time
+                            data-driven applications</strong>.
+                    </p>
+                    <p class="about-description">
+                        Experienced in building production-level platforms for trading, e-commerce, and analytics using
+                        <strong>Flutter</strong>, <strong>React.js</strong>, and <strong>Python</strong>. I have a
+                        strong foundation in API design, state management, UI/UX principles, and scalable software
+                        architecture. Adept in agile workflows and passionate about creating reliable, user-centric
+                        digital solutions.
+                    </p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <i class="fas fa-graduation-cap"></i>
+                            <div>
+                                <h4>Bachelor of Engineering</h4>
+                                <span>Computer Engineering (Expected Feb 2026)</span>
+                                <small>Kathmandu University School of Engineering</small>
+                            </div>
+                        </div>
+                        <div class="highlight-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <h4>Location</h4>
+                                <span>Kathmandu, Nepal</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="about-stats">
+                    <div class="stat-card">
+                        <span class="stat-number">15+</span>
+                        <span class="stat-label">Projects Completed</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">3+</span>
+                        <span class="stat-label">Years Coding</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-number">Full</span>
+                        <span class="stat-label">Stack Dev</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="skills section">
+        <div class="container">
+            <h2 class="section-title" data-text="My Skills">Technical Skills</h2>
+            <div class="skills-grid">
+                <div class="skill-category">
+                    <h3><i class="fas fa-code"></i> Languages</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Dart</span>
+                        <span class="skill-tag">JavaScript</span>
+                        <span class="skill-tag">Python</span>
+                        <span class="skill-tag">Java</span>
+                        <span class="skill-tag">SQL</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-mobile-alt"></i> Mobile</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">Flutter</span>
+                        <span class="skill-tag">Android SDK</span>
+                        <span class="skill-tag">iOS</span>
+                        <span class="skill-tag">State Management</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-globe"></i> Web</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">React.js</span>
+                        <span class="skill-tag">Node.js</span>
+                        <span class="skill-tag">Express.js</span>
+                        <span class="skill-tag">HTML/CSS</span>
+                        <span class="skill-tag">Tailwind</span>
+                        <span class="skill-tag">Material UI</span>
+                        <span class="skill-tag">REST APIs</span>
+                    </div>
+                </div>
+                <div class="skill-category">
+                    <h3><i class="fas fa-database"></i> Database & Tools</h3>
+                    <div class="skill-tags">
+                        <span class="skill-tag">MySQL</span>
+                        <span class="skill-tag">PostgreSQL</span>
+                        <span class="skill-tag">MongoDB</span>
+                        <span class="skill-tag">Firebase</span>
+                        <span class="skill-tag">Git</span>
+                        <span class="skill-tag">Docker</span>
+                        <span class="skill-tag">Postman</span>
+                        <span class="skill-tag">Jira</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="projects section">
+        <div class="container">
+            <h2 class="section-title" data-text="Portfolio">Featured Projects</h2>
+            <div class="projects-grid">
+                <!-- Project 1 -->
+                <div class="project-card" data-tilt>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="fas fa-chart-line project-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/DiabloRM/Forex_Dana_Clone" title="GitHub Repo"><i
+                                        class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Forex Dana Clone</h3>
+                        <p class="project-subtitle">Mobile forex trading visualization app</p>
+                        <p class="project-description">Developed interactive charts, order modules, and integrated
+                            low-latency market feeds using WebSockets.</p>
+                        <div class="project-tech-stack">
+                            <span>Flutter</span>
+                            <span>WebSockets</span>
+                            <span>Firebase</span>
+                            <span>Syncfusion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card" data-tilt>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="fas fa-chart-bar project-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/DiabloRM/METATRADER_CLONE" title="GitHub Repo"><i
+                                        class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">MetaTrader Clone</h3>
+                        <p class="project-subtitle">Market analysis and simulated trading</p>
+                        <p class="project-description">Built a trading interface with real-time price feeds, candlestick
+                            charts, and indicators (SMA, EMA, RSI, MACD).</p>
+                        <div class="project-tech-stack">
+                            <span>Flutter</span>
+                            <span>Dart</span>
+                            <span>REST APIs</span>
+                            <span>WebSockets</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card" data-tilt>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="fas fa-smile project-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/DiabloRM/Emotion-Detector" title="GitHub Repo"><i
+                                        class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Emotion Analysis</h3>
+                        <p class="project-subtitle">ML-based sentiment classifier</p>
+                        <p class="project-description">Built preprocessing pipeline, trained ML models, and deployed via
+                            Flask UI using NLTK and Scikit-learn.</p>
+                        <div class="project-tech-stack">
+                            <span>Python</span>
+                            <span>NLTK</span>
+                            <span>Scikit-learn</span>
+                            <span>Flask</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card" data-tilt>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="fas fa-shopping-cart project-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/DiabloRM/E_Basket-1" title="GitHub Repo"><i
+                                        class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">E-Commerce Platform</h3>
+                        <p class="project-subtitle">Product management, cart, authentication</p>
+                        <p class="project-description">Built product CRUD, JWT auth, cart features, and Stripe payments
+                            integration.</p>
+                        <div class="project-tech-stack">
+                            <span>MERN Stack</span>
+                            <span>REST APIs</span>
+                            <span>Stripe</span>
+                            <span>JWT</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card" data-tilt>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="fas fa-eye project-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/RohitMandal-33/diabetes_detection" title="GitHub Repo"><i
+                                        class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Diabetic Retinopathy</h3>
+                        <p class="project-subtitle">Deep learning-based retinal image classifier</p>
+                        <p class="project-description">Built a web-based classifier to detect diabetic retinopathy using
+                            ResNet50 and Gradio.</p>
+                        <div class="project-tech-stack">
+                            <span>Python</span>
+                            <span>TensorFlow</span>
+                            <span>ResNet50</span>
+                            <span>Gradio</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card" data-tilt>
+                    <div class="project-content">
+                        <div class="project-header">
+                            <i class="fas fa-chart-pie project-icon"></i>
+                            <div class="project-links">
+                                <a href="https://github.com/DiabloRM/Stonk-Watch" title="GitHub Repo"><i
+                                        class="fab fa-github"></i></a>
+                            </div>
+                        </div>
+                        <h3 class="project-title">Stonk Watch</h3>
+                        <p class="project-subtitle">Stock data visualization dashboard</p>
+                        <p class="project-description">Implemented live/historical charts, performance metrics, and user
+                            watchlists using Alpha Vantage API.</p>
+                        <div class="project-tech-stack">
+                            <span>React</span>
+                            <span>Flask</span>
+                            <span>Alpha Vantage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="experience section">
+        <div class="container">
+            <h2 class="section-title" data-text="Experience">Experience</h2>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Mar 2025 - Sep 2025</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-role">Software Developer</h3>
+                        <h4 class="timeline-company">WEBMINIX TECHNOLOGY FZE LLC (Remote)</h4>
+                        <ul class="timeline-list">
+                            <li>Developed and optimized core modules for financial trading apps (ForexDana, MT5-style
+                                platforms) using Flutter.</li>
+                            <li>Integrated real-time forex/stock data via WebSockets, improving system responsiveness
+                                and analytical capabilities.</li>
+                            <li>Built and consumed secure REST APIs to support trading logic, market feeds, and user
+                                operations.</li>
+                            <li>Contributed to agile sprints, code reviews, debugging, and feature iterations.</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-date">Oct 2024 - Feb 2025</div>
+                    <div class="timeline-content">
+                        <h3 class="timeline-role">Part-Time Flutter & React Developer</h3>
+                        <h4 class="timeline-company">Grow More Technology Pvt. Ltd., Lalitpur, Nepal</h4>
+                        <ul class="timeline-list">
+                            <li>Built production-ready mobile applications with Flutter, ensuring smooth UI and
+                                efficient performance.</li>
+                            <li>Developed responsive web interfaces using React.js with clean component structures and
+                                API integrations.</li>
+                            <li>Participated in code reviews and sprint cycles, enhancing workflow efficiency.</li>
+                            <li>Improved UI/UX flows and provided technical guidance during development cycles.</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="contact section">
+        <div class="container">
+            <h2 class="section-title" data-text="Contact">Get In Touch</h2>
+            <div class="contact-wrapper">
+                <div class="contact-info">
+                    <h3>Let's Connect</h3>
+                    <p>I'm currently available for freelance work or full-time opportunities. If you have a project that
+                        needs some creative touch, let's chat.</p>
+                    <div class="contact-details">
+                        <div class="contact-detail-item">
+                            <i class="fas fa-envelope"></i>
+                            <a href="mailto:mandal123rohit@gmail.com">mandal123rohit@gmail.com</a>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fas fa-phone-alt"></i>
+                            <span>+977 9746881733</span>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fab fa-whatsapp"></i>
+                            <a href="https://wa.me/9779816355798" target="_blank">+977 9816355798</a>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <span>Kathmandu, Nepal</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="https://github.com/RohitMandal-33" target="_blank"><i class="fab fa-github"></i></a>
+                        <a href="https://linkedin.com/in/rohit-mandal-952801249" target="_blank"><i
+                                class="fab fa-linkedin-in"></i></a>
+                        <a href="https://wa.me/9779816355798" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                    </div>
+                </div>
+                <form class="contact-form" id="contact-form">
+                    <div class="form-group">
+                        <input type="text" id="name" name="name" required placeholder="Your Name">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="email" name="email" required placeholder="Your Email">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="subject" name="subject" required placeholder="Subject">
+                    </div>
+                    <div class="form-group">
+                        <textarea id="message" name="message" rows="5" required placeholder="Your Message"></textarea>
+                    </div>
+                    <button type="submit" class="btn btn-primary btn-full-width">Send Message <i
+                            class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Rohit Kumar Mandal. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script src="app.js"></script>
+</body>
+
+</html>
