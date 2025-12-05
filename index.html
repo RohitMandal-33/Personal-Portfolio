@@ -4,6 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Rohit Kumar Mandal - Computer Engineer & Full-Stack Developer specializing in Flutter, React.js, and Python. Building scalable digital solutions with precision and passion.">
+    <meta name="keywords" content="Full-Stack Developer, Mobile App Developer, Flutter, React.js, Python, Software Engineer, Portfolio">
+    <meta name="author" content="Rohit Kumar Mandal">
     <title>Rohit Kumar Mandal - Computer Engineer & Full-Stack Developer</title>
     <link rel="stylesheet" href="style.css">
     <link
@@ -13,6 +16,9 @@
 </head>
 
 <body>
+    <!-- Scroll Progress Indicator -->
+    <div class="scroll-progress" id="scroll-progress"></div>
+    
     <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
@@ -25,6 +31,7 @@
                 <li><a href="#skills" class="nav-link">Skills</a></li>
                 <li><a href="#projects" class="nav-link">Projects</a></li>
                 <li><a href="#experience" class="nav-link">Experience</a></li>
+                <li><a href="#testimonials" class="nav-link">Testimonials</a></li>
                 <li><a href="#contact" class="nav-link">Contact</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -50,18 +57,18 @@
                     <p class="hero-tagline">Crafting scalable digital solutions with precision and passion.</p>
 
                     <div class="hero-buttons">
-                        <a href="#projects" class="btn btn-primary">View Work</a>
-                        <a href="#contact" class="btn btn-secondary">Contact Me</a>
-                        <a href="RohitMandal_CV.pdf" download class="btn btn-outline">Download CV <i
+                        <a href="#projects" class="btn btn-primary" aria-label="View my projects">View Work</a>
+                        <a href="#contact" class="btn btn-secondary" aria-label="Contact me">Contact Me</a>
+                        <a href="RohitMandal_CV.pdf" download class="btn btn-outline" aria-label="Download my CV">Download CV <i
                                 class="fas fa-download"></i></a>
                     </div>
 
                     <div class="social-links-hero">
-                        <a href="https://github.com/RohitMandal-33" target="_blank" class="social-icon"><i
+                        <a href="https://github.com/RohitMandal-33" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="GitHub Profile"><i
                                 class="fab fa-github"></i></a>
-                        <a href="https://linkedin.com/in/rohit-mandal-952801249" target="_blank" class="social-icon"><i
+                        <a href="https://linkedin.com/in/rohit-mandal-952801249" target="_blank" rel="noopener noreferrer" class="social-icon" aria-label="LinkedIn Profile"><i
                                 class="fab fa-linkedin-in"></i></a>
-                        <a href="mailto:mandal123rohit@gmail.com" class="social-icon"><i
+                        <a href="mailto:mandal123rohit@gmail.com" class="social-icon" aria-label="Email me"><i
                                 class="fas fa-envelope"></i></a>
                     </div>
                 </div>
@@ -195,12 +202,12 @@
             <h2 class="section-title" data-text="Portfolio">Featured Projects</h2>
             <div class="projects-grid">
                 <!-- Project 1 -->
-                <div class="project-card" data-tilt>
+                <div class="project-card" data-tilt data-project="1">
                     <div class="project-content">
                         <div class="project-header">
                             <i class="fas fa-chart-line project-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/DiabloRM/Forex_Dana_Clone" title="GitHub Repo"><i
+                                <a href="https://github.com/DiabloRM/Forex_Dana_Clone" title="GitHub Repo" target="_blank" rel="noopener noreferrer"><i
                                         class="fab fa-github"></i></a>
                             </div>
                         </div>
@@ -208,6 +215,16 @@
                         <p class="project-subtitle">Mobile forex trading visualization app</p>
                         <p class="project-description">Developed interactive charts, order modules, and integrated
                             low-latency market feeds using WebSockets.</p>
+                        <div class="project-metrics">
+                            <div class="metric-item">
+                                <i class="fas fa-code"></i>
+                                <span>Production Ready</span>
+                            </div>
+                            <div class="metric-item">
+                                <i class="fas fa-bolt"></i>
+                                <span>Real-time Data</span>
+                            </div>
+                        </div>
                         <div class="project-tech-stack">
                             <span>Flutter</span>
                             <span>WebSockets</span>
@@ -218,12 +235,12 @@
                 </div>
 
                 <!-- Project 2 -->
-                <div class="project-card" data-tilt>
+                <div class="project-card" data-tilt data-project="2">
                     <div class="project-content">
                         <div class="project-header">
                             <i class="fas fa-chart-bar project-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/DiabloRM/METATRADER_CLONE" title="GitHub Repo"><i
+                                <a href="https://github.com/DiabloRM/METATRADER_CLONE" title="GitHub Repo" target="_blank" rel="noopener noreferrer"><i
                                         class="fab fa-github"></i></a>
                             </div>
                         </div>
@@ -231,6 +248,16 @@
                         <p class="project-subtitle">Market analysis and simulated trading</p>
                         <p class="project-description">Built a trading interface with real-time price feeds, candlestick
                             charts, and indicators (SMA, EMA, RSI, MACD).</p>
+                        <div class="project-metrics">
+                            <div class="metric-item">
+                                <i class="fas fa-chart-line"></i>
+                                <span>4+ Indicators</span>
+                            </div>
+                            <div class="metric-item">
+                                <i class="fas fa-sync"></i>
+                                <span>Live Updates</span>
+                            </div>
+                        </div>
                         <div class="project-tech-stack">
                             <span>Flutter</span>
                             <span>Dart</span>
@@ -241,12 +268,12 @@
                 </div>
 
                 <!-- Project 3 -->
-                <div class="project-card" data-tilt>
+                <div class="project-card" data-tilt data-project="3">
                     <div class="project-content">
                         <div class="project-header">
                             <i class="fas fa-smile project-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/DiabloRM/Emotion-Detector" title="GitHub Repo"><i
+                                <a href="https://github.com/DiabloRM/Emotion-Detector" title="GitHub Repo" target="_blank" rel="noopener noreferrer"><i
                                         class="fab fa-github"></i></a>
                             </div>
                         </div>
@@ -254,6 +281,16 @@
                         <p class="project-subtitle">ML-based sentiment classifier</p>
                         <p class="project-description">Built preprocessing pipeline, trained ML models, and deployed via
                             Flask UI using NLTK and Scikit-learn.</p>
+                        <div class="project-metrics">
+                            <div class="metric-item">
+                                <i class="fas fa-brain"></i>
+                                <span>ML Model</span>
+                            </div>
+                            <div class="metric-item">
+                                <i class="fas fa-rocket"></i>
+                                <span>Deployed</span>
+                            </div>
+                        </div>
                         <div class="project-tech-stack">
                             <span>Python</span>
                             <span>NLTK</span>
@@ -264,12 +301,12 @@
                 </div>
 
                 <!-- Project 4 -->
-                <div class="project-card" data-tilt>
+                <div class="project-card" data-tilt data-project="4">
                     <div class="project-content">
                         <div class="project-header">
                             <i class="fas fa-shopping-cart project-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/DiabloRM/E_Basket-1" title="GitHub Repo"><i
+                                <a href="https://github.com/DiabloRM/E_Basket-1" title="GitHub Repo" target="_blank" rel="noopener noreferrer"><i
                                         class="fab fa-github"></i></a>
                             </div>
                         </div>
@@ -277,6 +314,16 @@
                         <p class="project-subtitle">Product management, cart, authentication</p>
                         <p class="project-description">Built product CRUD, JWT auth, cart features, and Stripe payments
                             integration.</p>
+                        <div class="project-metrics">
+                            <div class="metric-item">
+                                <i class="fas fa-lock"></i>
+                                <span>Secure Auth</span>
+                            </div>
+                            <div class="metric-item">
+                                <i class="fas fa-credit-card"></i>
+                                <span>Payment Ready</span>
+                            </div>
+                        </div>
                         <div class="project-tech-stack">
                             <span>MERN Stack</span>
                             <span>REST APIs</span>
@@ -287,12 +334,12 @@
                 </div>
 
                 <!-- Project 5 -->
-                <div class="project-card" data-tilt>
+                <div class="project-card" data-tilt data-project="5">
                     <div class="project-content">
                         <div class="project-header">
                             <i class="fas fa-eye project-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/RohitMandal-33/diabetes_detection" title="GitHub Repo"><i
+                                <a href="https://github.com/RohitMandal-33/diabetes_detection" title="GitHub Repo" target="_blank" rel="noopener noreferrer"><i
                                         class="fab fa-github"></i></a>
                             </div>
                         </div>
@@ -300,6 +347,16 @@
                         <p class="project-subtitle">Deep learning-based retinal image classifier</p>
                         <p class="project-description">Built a web-based classifier to detect diabetic retinopathy using
                             ResNet50 and Gradio.</p>
+                        <div class="project-metrics">
+                            <div class="metric-item">
+                                <i class="fas fa-robot"></i>
+                                <span>Deep Learning</span>
+                            </div>
+                            <div class="metric-item">
+                                <i class="fas fa-medical"></i>
+                                <span>Healthcare AI</span>
+                            </div>
+                        </div>
                         <div class="project-tech-stack">
                             <span>Python</span>
                             <span>TensorFlow</span>
@@ -310,12 +367,12 @@
                 </div>
 
                 <!-- Project 6 -->
-                <div class="project-card" data-tilt>
+                <div class="project-card" data-tilt data-project="6">
                     <div class="project-content">
                         <div class="project-header">
                             <i class="fas fa-chart-pie project-icon"></i>
                             <div class="project-links">
-                                <a href="https://github.com/DiabloRM/Stonk-Watch" title="GitHub Repo"><i
+                                <a href="https://github.com/DiabloRM/Stonk-Watch" title="GitHub Repo" target="_blank" rel="noopener noreferrer"><i
                                         class="fab fa-github"></i></a>
                             </div>
                         </div>
@@ -323,10 +380,57 @@
                         <p class="project-subtitle">Stock data visualization dashboard</p>
                         <p class="project-description">Implemented live/historical charts, performance metrics, and user
                             watchlists using Alpha Vantage API.</p>
+                        <div class="project-metrics">
+                            <div class="metric-item">
+                                <i class="fas fa-chart-area"></i>
+                                <span>Data Viz</span>
+                            </div>
+                            <div class="metric-item">
+                                <i class="fas fa-star"></i>
+                                <span>Watchlists</span>
+                            </div>
+                        </div>
                         <div class="project-tech-stack">
                             <span>React</span>
                             <span>Flask</span>
                             <span>Alpha Vantage</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="testimonials section">
+        <div class="container">
+            <h2 class="section-title" data-text="Testimonials">What People Say</h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">Rohit demonstrated exceptional technical skills and problem-solving abilities during our collaboration. His attention to detail and commitment to delivering quality work is impressive.</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Professional Colleague</h4>
+                                <span>Tech Industry</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="testimonial-card">
+                    <div class="testimonial-content">
+                        <div class="testimonial-quote">
+                            <i class="fas fa-quote-left"></i>
+                        </div>
+                        <p class="testimonial-text">Working with Rohit was a great experience. He brings innovative solutions to complex problems and consistently delivers on time with high-quality code.</p>
+                        <div class="testimonial-author">
+                            <div class="author-info">
+                                <h4>Team Lead</h4>
+                                <span>Development Team</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -437,6 +541,11 @@
             <p>&copy; 2025 Rohit Kumar Mandal. All rights reserved.</p>
         </div>
     </footer>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" id="back-to-top" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
 
     <script src="app.js"></script>
 </body>

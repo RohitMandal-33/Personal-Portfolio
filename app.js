@@ -8,6 +8,9 @@ document.addEventListener('DOMContentLoaded', function () {
     initParticles();
     initTiltEffect();
     initContactForm();
+    initScrollProgress();
+    initEnhancedAnimations();
+    initBackToTop();
 });
 
 // Navigation functionality
@@ -104,13 +107,19 @@ function initScrollAnimations() {
         });
     }, observerOptions);
 
-    const elements = document.querySelectorAll('.section-title, .about-content, .skill-category, .project-card, .timeline-item, .contact-wrapper');
+    const elements = document.querySelectorAll('.section-title, .about-content, .skill-category, .timeline-item, .contact-wrapper');
 
     elements.forEach(el => {
         el.style.opacity = '0';
         el.style.transform = 'translateY(30px)';
         el.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
         observer.observe(el);
+    });
+
+    // Handle project cards separately to work with staggered animation
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach(card => {
+        observer.observe(card);
     });
 
     // Add CSS class for animation
@@ -212,7 +221,33 @@ function initTiltEffect() {
     const cards = document.querySelectorAll('[data-tilt]');
 
     cards.forEach(card => {
-        card.addEventListener('mousemove', (e) => {
+        // Only apply tilt effect after animation completes
+        const checkAnimationComplete = () => {
+            const hasAnimateIn = card.classList.contains('animate-in');
+            if (!hasAnimateIn) {
+                // Wait for animation to start
+                const observer = new MutationObserver(() => {
+                    if (card.classList.contains('animate-in')) {
+                        observer.disconnect();
+                        // Wait for animation to complete before enabling tilt
+                        setTimeout(() => {
+                            enableTilt(card);
+                        }, 600); // Match animation duration
+                    }
+                });
+                observer.observe(card, { attributes: true, attributeFilter: ['class'] });
+            } else {
+                // Animation already complete, enable tilt immediately
+                enableTilt(card);
+            }
+        };
+
+        const enableTilt = (cardElement) => {
+            cardElement.addEventListener('mousemove', handleTilt);
+            cardElement.addEventListener('mouseleave', resetTilt);
+        };
+
+        const handleTilt = (e) => {
             const rect = card.getBoundingClientRect();
             const x = e.clientX - rect.left;
             const y = e.clientY - rect.top;
@@ -223,12 +258,18 @@ function initTiltEffect() {
             const rotateX = ((y - centerY) / centerY) * -10;
             const rotateY = ((x - centerX) / centerX) * 10;
 
-            card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.05, 1.05, 1.05)`;
-        });
+            // Use CSS custom properties to avoid overriding animation
+            card.style.setProperty('--tilt-rotate-x', `${rotateX}deg`);
+            card.style.setProperty('--tilt-rotate-y', `${rotateY}deg`);
+        };
 
-        card.addEventListener('mouseleave', () => {
-            card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale3d(1, 1, 1)';
-        });
+        const resetTilt = () => {
+            card.style.setProperty('--tilt-rotate-x', '0deg');
+            card.style.setProperty('--tilt-rotate-y', '0deg');
+        };
+
+        // Initialize tilt effect check
+        checkAnimationComplete();
     });
 }
 
@@ -271,5 +312,99 @@ function initContactForm() {
                 btn.style.color = '';
             }, 3000);
         }, 500);
+    });
+}
+
+// Scroll Progress Indicator
+function initScrollProgress() {
+    const scrollProgress = document.getElementById('scroll-progress');
+    if (!scrollProgress) return;
+
+    window.addEventListener('scroll', () => {
+        const windowHeight = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+        const scrolled = (window.scrollY / windowHeight) * 100;
+        scrollProgress.style.width = scrolled + '%';
+    });
+}
+
+// Enhanced Animations
+function initEnhancedAnimations() {
+    // Add stagger animation to project cards
+    const projectCards = document.querySelectorAll('.project-card');
+    projectCards.forEach((card, index) => {
+        card.style.animationDelay = `${index * 0.1}s`;
+    });
+
+    // Add parallax effect to hero section
+    window.addEventListener('scroll', () => {
+        const scrolled = window.pageYOffset;
+        const heroContent = document.querySelector('.hero-content');
+        if (heroContent && scrolled < window.innerHeight) {
+            heroContent.style.transform = `translateY(${scrolled * 0.5}px)`;
+            heroContent.style.opacity = 1 - (scrolled / window.innerHeight) * 0.5;
+        }
+    });
+
+    // Add counter animation to stats
+    const statNumbers = document.querySelectorAll('.stat-number');
+    const observerOptions = {
+        threshold: 0.5
+    };
+
+    const statsObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                const target = entry.target;
+                const text = target.textContent;
+                const isNumber = /^\d+/.test(text);
+                
+                if (isNumber) {
+                    const finalNumber = parseInt(text);
+                    let current = 0;
+                    const increment = finalNumber / 30;
+                    const timer = setInterval(() => {
+                        current += increment;
+                        if (current >= finalNumber) {
+                            target.textContent = text;
+                            clearInterval(timer);
+                        } else {
+                            target.textContent = Math.floor(current) + (text.includes('+') ? '+' : '');
+                        }
+                    }, 30);
+                    statsObserver.unobserve(target);
+                }
+            }
+        });
+    }, observerOptions);
+
+    statNumbers.forEach(stat => statsObserver.observe(stat));
+
+    // Add hover sound effect simulation (visual feedback)
+    const interactiveElements = document.querySelectorAll('.btn, .project-card, .skill-tag, .nav-link');
+    interactiveElements.forEach(element => {
+        element.addEventListener('mouseenter', function() {
+            this.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+        });
+    });
+}
+
+// Back to Top Button
+function initBackToTop() {
+    const backToTopBtn = document.getElementById('back-to-top');
+    if (!backToTopBtn) return;
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 300) {
+            backToTopBtn.classList.add('visible');
+        } else {
+            backToTopBtn.classList.remove('visible');
+        }
+    });
+
+    backToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
     });
 }
