@@ -155,7 +155,7 @@ function initParticles() {
             this.vx = (Math.random() - 0.5) * 0.5;
             this.vy = (Math.random() - 0.5) * 0.5;
             this.size = Math.random() * 2;
-            this.color = Math.random() > 0.5 ? '#00f2ff' : '#7000ff';
+            this.color = Math.random() > 0.5 ? '#5b8fc7' : '#4a6fa5';
         }
 
         update() {
@@ -302,8 +302,8 @@ function initContactForm() {
             window.location.href = finalMailto;
 
             btn.innerHTML = '<i class="fas fa-check"></i> Opened!';
-            btn.style.background = '#00f2ff';
-            btn.style.color = '#000';
+            btn.style.background = '#5b8fc7';
+            btn.style.color = '#e8eaed';
             form.reset();
 
             setTimeout(() => {
@@ -357,7 +357,7 @@ function initEnhancedAnimations() {
                 const target = entry.target;
                 const text = target.textContent;
                 const isNumber = /^\d+/.test(text);
-                
+
                 if (isNumber) {
                     const finalNumber = parseInt(text);
                     let current = 0;
@@ -382,7 +382,7 @@ function initEnhancedAnimations() {
     // Add hover sound effect simulation (visual feedback)
     const interactiveElements = document.querySelectorAll('.btn, .project-card, .skill-tag, .nav-link');
     interactiveElements.forEach(element => {
-        element.addEventListener('mouseenter', function() {
+        element.addEventListener('mouseenter', function () {
             this.style.transition = 'all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
         });
     });
