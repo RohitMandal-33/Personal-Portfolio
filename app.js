@@ -84,6 +84,17 @@
   ────────────────────────────────────────── */
   function initTerminal() {
     const overlay = document.getElementById('terminal-overlay');
+    if (!overlay) return;
+
+    if (reducedMotion) {
+      overlay.style.display = 'none';
+      overlay.setAttribute('aria-hidden', 'true');
+      revealHero();
+      return;
+    }
+
+    overlay.setAttribute('aria-hidden', 'false');
+
     const lines = [
       { id: 'tl-0', text: 'rohit mandal' },
       { id: 'tl-1', text: 'android dev  /  flutter  /  react  /  python' },
@@ -93,39 +104,67 @@
     ];
 
     let lineIndex = 0;
-    const CHAR_MS = 38;      // ms per character
-    const LINE_GAP = 220;     // ms pause before next line starts
-    const END_HOLD = 500;     // ms to hold after last line is done
+    const CHAR_MS = 12;      // fast ms per character (down from 38ms)
+    const LINE_GAP = 60;      // snappy pause before next line (down from 220ms)
+    const END_HOLD = 150;     // short hold after finish (down from 500ms)
+    const INITIAL_DELAY = 60; // quick initial start delay (down from 320ms)
+
+    let currentInterval = null;
+    let currentTimeout = null;
+    let isExiting = false;
+
+    function finishImmediately() {
+      if (isExiting) return;
+      isExiting = true;
+      if (currentInterval) clearInterval(currentInterval);
+      if (currentTimeout) clearTimeout(currentTimeout);
+
+      lines.forEach(({ id, text }) => {
+        const el = document.getElementById(id);
+        if (!el) return;
+        const contentSpan = el.querySelector('.content');
+        if (contentSpan) contentSpan.textContent = text;
+        el.classList.add('visible', 'done');
+      });
+
+      exitOverlay();
+    }
 
     function typeNextLine() {
+      if (isExiting) return;
       if (lineIndex >= lines.length) {
-        // All done — wait, then slide the overlay up
-        setTimeout(exitOverlay, END_HOLD);
+        currentTimeout = setTimeout(exitOverlay, END_HOLD);
         return;
       }
 
       const { id, text } = lines[lineIndex];
       const el = document.getElementById(id);
+      if (!el) {
+        lineIndex++;
+        typeNextLine();
+        return;
+      }
       const contentSpan = el.querySelector('.content');
-      const cursorSpan = el.querySelector('.cursor');
 
       el.classList.add('visible');
 
       let charIdx = 0;
-      const interval = setInterval(() => {
+      currentInterval = setInterval(() => {
+        if (isExiting) return;
         contentSpan.textContent = text.slice(0, charIdx + 1);
         charIdx++;
 
         if (charIdx >= text.length) {
-          clearInterval(interval);
+          clearInterval(currentInterval);
           el.classList.add('done');       // hides cursor after typing
           lineIndex++;
-          setTimeout(typeNextLine, LINE_GAP);
+          currentTimeout = setTimeout(typeNextLine, LINE_GAP);
         }
       }, CHAR_MS);
     }
 
     function exitOverlay() {
+      if (!overlay) return;
       overlay.classList.add('exit');
       overlay.addEventListener('transitionend', () => {
         overlay.style.display = 'none';
@@ -134,8 +173,11 @@
       }, { once: true });
     }
 
-    // Start typing after a short settle delay
-    setTimeout(typeNextLine, 320);
+    // Allow user to click/tap overlay to skip immediately
+    overlay.addEventListener('click', finishImmediately, { once: true });
+
+    // Start typing quickly after DOM load
+    currentTimeout = setTimeout(typeNextLine, INITIAL_DELAY);
   }
 
   /* ──────────────────────────────────────────

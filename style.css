@@ -169,7 +169,8 @@ body::before {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: transform 0.55s cubic-bezier(0.76, 0, 0.24, 1);
+  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+  cursor: pointer;
 }
 
 #terminal-overlay.exit {
