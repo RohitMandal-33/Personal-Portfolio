@@ -53,6 +53,10 @@
     'mern stack': '<circle cx="12" cy="12" r="2"/><ellipse cx="12" cy="12" rx="10" ry="4"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(60 12 12)"/><ellipse cx="12" cy="12" rx="10" ry="4" transform="rotate(120 12 12)"/>',
     stripe: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/>',
     jwt: '<rect x="3" y="11" width="18" height="10" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/>',
+    retrofit: '<circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20z"/>',
+    hilt: '<path d="M12 2v8M8 10h8l-1 10H9z"/>',
+    'clean architecture': '<circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="7"/><circle cx="12" cy="12" r="11"/>',
+    keras: '<path d="M4 4h6v16H4zM14 4h6v7h-6zM14 13h6v7h-6z"/>',
     flask: '<path d="M9 2h6M10 2v6l-6 12a2 2 0 0 0 2 3h12a2 2 0 0 0 2-3l-6-12V2"/>',
     'alpha vantage': '<path d="M3 17l6-6 4 4 8-8"/>',
     tensorflow: '<path d="M12 2v20M6 6l12 4M6 14l12 4M2 10l4-2v8l-4-2z"/>',
@@ -409,10 +413,12 @@
       });
 
       if (banner && bannerTag) {
-        const label = sourceItem ? sourceItem.textContent.trim() : stack.toUpperCase();
+        const label = sourceItem
+          ? (sourceItem.dataset.label || sourceItem.textContent.trim())
+          : stack.toUpperCase();
         const bannerText = document.getElementById('filter-banner-text');
         if (matchCount === 0 && bannerText) {
-          bannerText.innerHTML = `<strong>${label}</strong> is in the skillset, just not tagged on a public project yet — here's everything else`;
+          bannerText.innerHTML = `<strong>${label}</strong> is in the skillset, just not tagged on a public project yet. Here's everything else`;
         } else if (bannerText) {
           bannerText.innerHTML = `Showing projects using <strong>${label}</strong>`;
         }

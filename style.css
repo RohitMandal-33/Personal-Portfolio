@@ -846,6 +846,13 @@ body.to-the-moon .hero-orb-3 {
   border-radius: var(--r-sm);
 }
 
+.ticker-logo {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: contain;
+}
+
 .ticker-item:hover {
   color: var(--chalk);
   background: var(--ash-10);
