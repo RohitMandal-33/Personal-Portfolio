@@ -270,6 +270,31 @@ body::before {
   justify-content: space-between;
 }
 
+.nav-brand {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: inherit;
+  min-width: 0;
+}
+
+.nav-avatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  object-fit: cover;
+  object-position: center top;
+  border: 1px solid var(--ash-20);
+  flex-shrink: 0;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.navbar.avatar-docked .nav-avatar {
+  opacity: 1;
+  pointer-events: auto;
+}
+
 .nav-wordmark {
   font-family: var(--font-body);
   font-size: var(--text-sm);
@@ -610,7 +635,34 @@ body.to-the-moon .hero-orb-3 {
   border-radius: var(--r-xl);
   border: 1px solid var(--ash-15);
   display: block;
+  transform-origin: center center;
   transition: transform 0.4s var(--ease-out), border-color 0.4s ease;
+}
+
+.hero-photo.is-flying {
+  position: relative;
+  z-index: 1100;
+  pointer-events: none;
+  will-change: transform, border-radius, opacity;
+  transition: none;
+  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.55);
+}
+
+.hero-photo.is-docked {
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: none;
+}
+
+.hero-image-wrap.is-docking .hero-image-badge {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.hero-image-wrap.is-docking:hover .hero-photo {
+  transform: none;
+  border-color: var(--ash-15);
 }
 
 .hero-image-wrap:hover .hero-photo {

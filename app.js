@@ -228,6 +228,97 @@
   }
 
   /* ──────────────────────────────────────────
+     AVATAR DOCK — hero photo shrinks into the
+     navbar beside the name on scroll
+  ────────────────────────────────────────── */
+  function initAvatarDock() {
+    const photo = document.querySelector('.hero-photo');
+    const wrap = document.getElementById('hero-image');
+    const dest = document.getElementById('nav-avatar');
+    const navbar = document.getElementById('navbar');
+    const hero = document.getElementById('home');
+
+    if (!photo || !wrap || !dest || !navbar || !hero) return;
+
+    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    const lerp = (a, b, t) => a + (b - a) * t;
+
+    let ticking = false;
+
+    function clearFlight() {
+      photo.style.transform = '';
+      photo.style.borderRadius = '';
+      photo.classList.remove('is-flying', 'is-docked');
+      wrap.classList.remove('is-docking');
+      navbar.classList.remove('avatar-docked');
+    }
+
+    function update() {
+      ticking = false;
+
+      const range = Math.max(220, hero.offsetHeight * 0.45);
+      const raw = Math.min(1, Math.max(0, window.scrollY / range));
+
+      if (reducedMotion) {
+        if (raw > 0.35) {
+          photo.classList.add('is-docked');
+          wrap.classList.add('is-docking');
+          navbar.classList.add('avatar-docked');
+          photo.style.transform = '';
+        } else {
+          clearFlight();
+        }
+        return;
+      }
+
+      if (raw <= 0.001) {
+        clearFlight();
+        return;
+      }
+
+      const t = easeOutCubic(raw);
+      const start = wrap.getBoundingClientRect();
+      const end = dest.getBoundingClientRect();
+
+      if (start.width < 8 || end.width < 8) return;
+
+      const startCX = start.left + start.width / 2;
+      const startCY = start.top + start.height / 2;
+      const endCX = end.left + end.width / 2;
+      const endCY = end.top + end.height / 2;
+
+      const dx = (endCX - startCX) * t;
+      const dy = (endCY - startCY) * t;
+      const scaleX = lerp(1, end.width / start.width, t);
+      const scaleY = lerp(1, end.height / start.height, t);
+      const radius = lerp(12, Math.min(end.width, end.height) / 2, t);
+
+      wrap.classList.add('is-docking');
+      photo.classList.add('is-flying');
+      photo.style.transform = `translate(${dx}px, ${dy}px) scale(${scaleX}, ${scaleY})`;
+      photo.style.borderRadius = radius + 'px';
+
+      if (t >= 0.96) {
+        photo.classList.add('is-docked');
+        navbar.classList.add('avatar-docked');
+      } else {
+        photo.classList.remove('is-docked');
+        navbar.classList.remove('avatar-docked');
+      }
+    }
+
+    function requestUpdate() {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(update);
+    }
+
+    window.addEventListener('scroll', requestUpdate, { passive: true });
+    window.addEventListener('resize', requestUpdate);
+    requestUpdate();
+  }
+
+  /* ──────────────────────────────────────────
      NAVIGATION
   ────────────────────────────────────────── */
   function initNavigation() {
@@ -572,6 +663,7 @@
     initExperienceAccordion();
     initCopyEmail();
     initHeroSpotlight();
+    initAvatarDock();
     initMoonEasterEgg();
     initBackToTop();
     initTerminal();   // terminal runs last — it controls hero reveal
