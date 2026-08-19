@@ -3,17 +3,66 @@
    ============================================= */
 
 .experience-list {
+  position: relative;
   display: flex;
   flex-direction: column;
   gap: 0;
 }
 
+/* Vertical Timeline Spine (AnimMasterLib style) */
+.experience-list::before {
+  content: '';
+  position: absolute;
+  top: 6px;
+  bottom: 24px;
+  left: 180px;
+  width: 1px;
+  background: linear-gradient(
+    180deg,
+    var(--signal) 0%,
+    rgba(192, 138, 46, 0.45) 60%,
+    transparent 100%
+  );
+  transform: translateX(-50%);
+  opacity: 0.5;
+  pointer-events: none;
+}
+
 .exp-item {
+  position: relative;
   display: grid;
   grid-template-columns: 180px 1fr;
   gap: var(--sp-8);
   padding: var(--sp-8) 0;
   border-bottom: 1px solid var(--ash-10);
+  transition: background 0.3s ease;
+}
+
+/* Timeline dot on spine */
+.exp-item::after {
+  content: '';
+  position: absolute;
+  top: 36px;
+  left: 180px;
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--ink);
+  border: 2px solid var(--ash);
+  transform: translate(-50%, -50%);
+  z-index: 2;
+  transition: border-color 0.3s ease, background 0.3s ease, box-shadow 0.3s ease, transform 0.3s var(--ease-out);
+}
+
+.exp-item:first-child::after {
+  top: 10px;
+}
+
+.exp-item.expanded::after {
+  border-color: var(--gold);
+  background: var(--signal);
+  box-shadow: 0 0 14px 3px rgba(179, 58, 58, 0.65);
+  transform: translate(-50%, -50%) scale(1.25);
 }
 
 .exp-item:first-child {
@@ -41,8 +90,8 @@
 }
 
 .exp-date .icon {
-  color: var(--signal);
-  opacity: 0.8;
+  color: var(--gold);
+  opacity: 0.9;
 }
 
 .exp-location {
@@ -83,14 +132,15 @@
 
 .exp-role-row:hover .exp-toggle {
   color: var(--chalk);
-  border-color: var(--signal-30);
-  background: var(--signal-10);
+  border-color: var(--gold);
+  background: var(--gold-10);
 }
 
 .exp-item.expanded .exp-toggle {
   transform: rotate(180deg);
-  color: var(--signal);
-  border-color: var(--signal-30);
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-10);
 }
 
 .exp-toggle svg {
@@ -103,7 +153,7 @@
   align-items: center;
   gap: 6px;
   font-size: var(--text-sm);
-  color: var(--signal);
+  color: var(--gold);
   margin-bottom: var(--sp-3);
   font-weight: 400;
 }
@@ -111,6 +161,7 @@
 .exp-company .icon {
   width: 12px;
   height: 12px;
+  color: var(--gold);
 }
 
 .exp-list {

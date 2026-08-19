@@ -1,27 +1,135 @@
-/* =============================================
-   SKILLS SECTION
-   ============================================= */
+/* ── Stats Counter Row (VengenceUI Stats Counter style) ── */
+.skills-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--sp-4);
+  margin-bottom: var(--sp-12);
+}
 
+.stat-card {
+  position: relative;
+  background: var(--slate);
+  border: 1px solid var(--ash-15);
+  border-radius: var(--r-lg);
+  padding: var(--sp-5) var(--sp-4);
+  text-align: center;
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-out), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-4px);
+  border-color: rgba(192, 138, 46, 0.4);
+  box-shadow: 0 10px 30px -10px rgba(179, 58, 58, 0.25);
+}
+
+.stat-card::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.stat-card:hover::after {
+  opacity: 1;
+}
+
+.stat-number {
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--chalk);
+  font-family: var(--font-body);
+  line-height: 1.1;
+  margin-bottom: var(--sp-1);
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 2px;
+}
+
+.stat-number .stat-val {
+  background: linear-gradient(180deg, #ECEFF5 0%, #D8DCE6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.stat-number .stat-suffix {
+  color: var(--gold);
+  font-size: var(--text-xl);
+  font-weight: 600;
+}
+
+.stat-label {
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--ash);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+/* ── Skills Grid with Glow Border Cards ── */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: var(--sp-8);
+  gap: var(--sp-6);
+}
+
+.skill-group {
+  position: relative;
+  background: rgba(23, 25, 30, 0.65);
+  border: 1px solid var(--ash-15);
+  border-radius: var(--r-xl);
+  padding: var(--sp-6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  overflow: hidden;
+  transition: transform 0.3s var(--ease-out), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.skill-group:hover {
+  transform: translateY(-3px);
+  border-color: rgba(192, 138, 46, 0.35);
+  box-shadow: 0 12px 32px -12px rgba(179, 58, 58, 0.2);
+}
+
+/* Glowing corner radial gradient */
+.skill-group::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 140px;
+  height: 140px;
+  background: radial-gradient(circle at 100% 0%, rgba(179, 58, 58, 0.14) 0%, transparent 70%);
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+
+.skill-group:hover::before {
+  opacity: 1;
 }
 
 .skill-group-label {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: var(--text-xs);
-  font-weight: 500;
+  font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
-  color: var(--ash);
-  margin-bottom: var(--sp-3);
+  color: var(--chalk);
+  margin-bottom: var(--sp-4);
+  padding-bottom: var(--sp-2);
+  border-bottom: 1px solid var(--ash-10);
 }
 
 .skill-group-label .icon {
-  color: var(--signal);
+  color: var(--gold);
 }
 
 .skill-tags {
@@ -37,24 +145,25 @@
   font-size: var(--text-xs);
   font-weight: 500;
   color: var(--chalk);
-  background: transparent;
+  background: rgba(14, 15, 17, 0.75);
   border: 1px solid var(--ash-20);
   border-radius: var(--r-md);
-  padding: 5px 10px;
+  padding: 6px 12px;
   letter-spacing: 0.01em;
   transition: border-color 0.2s ease, color 0.2s ease, transform 0.2s var(--ease-out),
-    background 0.2s ease;
+    background 0.2s ease, box-shadow 0.2s ease;
 }
 
 .skill-tag .icon {
-  color: var(--signal);
+  color: var(--gold);
   width: 12px;
   height: 12px;
 }
 
 .skill-tag:hover {
-  border-color: var(--ash-40, rgba(138, 143, 160, 0.4));
-  color: var(--chalk);
+  border-color: var(--gold);
+  color: #ffffff;
   transform: translateY(-2px);
-  background: var(--ash-10);
+  background: var(--gold-15);
+  box-shadow: 0 4px 14px rgba(192, 138, 46, 0.25);
 }

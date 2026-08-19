@@ -1,13 +1,45 @@
-/* =============================================
-   CONTACT SECTION
-   ============================================= */
-
 .contact-section {
+  position: relative;
   padding: var(--sp-24) 0;
-  border-top: 1px solid var(--ash-10);
+  border-top: none;
+  overflow: hidden;
+}
+
+/* ── Ambient Mesh Gradient Orbs (AnimMasterLib style) ── */
+.contact-section::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 520px;
+  height: 360px;
+  background: radial-gradient(
+    ellipse at center,
+    rgba(179, 58, 58, 0.18) 0%,
+    rgba(192, 138, 46, 0.10) 45%,
+    transparent 70%
+  );
+  transform: translate(-50%, -50%);
+  filter: blur(65px);
+  pointer-events: none;
+  z-index: 0;
+  animation: contact-orb-pulse 8s ease-in-out infinite alternate;
+}
+
+@keyframes contact-orb-pulse {
+  0% {
+    transform: translate(-50%, -50%) scale(0.9);
+    opacity: 0.7;
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1.15);
+    opacity: 1;
+  }
 }
 
 .contact-inner {
+  position: relative;
+  z-index: 1;
   max-width: 600px;
   margin: 0 auto;
   text-align: center;
@@ -16,12 +48,21 @@
 
 .contact-headline {
   font-family: var(--font-display);
-  font-size: clamp(2rem, 4vw, var(--text-6xl));
-  font-weight: 400;
+  font-size: clamp(2.2rem, 4.5vw, var(--text-6xl));
+  font-weight: 500;
   color: var(--chalk);
-  line-height: 1.1;
-  letter-spacing: -0.02em;
+  line-height: 1.12;
+  letter-spacing: -0.015em;
   margin-bottom: var(--sp-4);
+}
+
+.contact-headline em {
+  font-style: italic;
+  background: linear-gradient(120deg, #ECEFF5 0%, var(--gold) 50%, var(--signal) 100%);
+  background-size: 200% auto;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: text-shine 6s linear infinite;
 }
 
 .contact-sub {
@@ -42,7 +83,7 @@
 }
 
 .contact-sub .icon {
-  color: var(--signal);
+  color: var(--gold);
 }
 
 .contact-email-row {
@@ -58,14 +99,14 @@
   font-size: var(--text-lg);
   font-weight: 500;
   color: var(--chalk);
-  border-bottom: 1px solid var(--ash-30);
+  border-bottom: 1px solid rgba(192, 138, 46, 0.3);
   padding-bottom: 2px;
   transition: color 0.2s ease, border-color 0.2s ease;
 }
 
 .contact-email:hover {
-  color: var(--signal);
-  border-color: var(--signal);
+  color: var(--gold);
+  border-color: var(--gold);
 }
 
 .copy-email-btn {
@@ -82,14 +123,14 @@
 
 .copy-email-btn:hover {
   color: var(--chalk);
-  border-color: var(--signal-30);
-  background: var(--signal-10);
+  border-color: var(--gold);
+  background: var(--gold-10);
 }
 
 .copy-email-btn.copied {
-  color: #34D399;
-  border-color: rgba(52, 211, 153, 0.4);
-  background: rgba(52, 211, 153, 0.1);
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-15);
   transform: scale(1.1);
 }
 
@@ -127,7 +168,7 @@
 }
 
 .contact-link:hover {
-  color: var(--chalk);
+  color: var(--gold);
   transform: translateY(-2px);
 }
 

@@ -3,29 +3,43 @@
    ============================================= */
 
 /* ── Fonts ── */
-@import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Inter:wght@300;400;500;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,500;0,9..144,600;0,9..144,700;1,9..144,400&family=Marcellus&family=Inter:wght@300;400;500;600;700&display=swap');
 
 /* ── Tokens ── */
 :root {
-  /* Palette */
+  /* Dark Base Palette */
   --ink: #0E0F11;
-  --slate: #1A1D24;
-  --ash: #8A8FA0;
-  --chalk: #E8EBF2;
-  --signal: #3D7CF4;
-  --mist: #1E2840;
+  --slate: #17191E;
+  --ash: #8E93A2;
+  --chalk: #ECEFF5;
+
+  /* Traditional Nepali Refined Palette */
+  --signal: #B33A3A;        /* Deep temple-red */
+  --signal-hover: #9E2F2F;  /* Deeper crimson */
+  --gold: #C08A2E;          /* Antique-gold accent */
+  --gold-hover: #D49D3B;    /* Warm luminous gold */
+  --mist: #201517;
 
   /* Alpha variants */
-  --ash-10: rgba(138, 143, 160, 0.10);
-  --ash-15: rgba(138, 143, 160, 0.15);
-  --ash-20: rgba(138, 143, 160, 0.20);
-  --ash-30: rgba(138, 143, 160, 0.30);
-  --signal-10: rgba(61, 124, 244, 0.10);
-  --signal-20: rgba(61, 124, 244, 0.20);
-  --signal-30: rgba(61, 124, 244, 0.30);
+  --ash-10: rgba(142, 147, 162, 0.10);
+  --ash-15: rgba(142, 147, 162, 0.15);
+  --ash-20: rgba(142, 147, 162, 0.20);
+  --ash-30: rgba(142, 147, 162, 0.30);
+
+  --signal-10: rgba(179, 58, 58, 0.10);
+  --signal-15: rgba(179, 58, 58, 0.15);
+  --signal-20: rgba(179, 58, 58, 0.20);
+  --signal-30: rgba(179, 58, 58, 0.30);
+  --signal-40: rgba(179, 58, 58, 0.40);
+
+  --gold-10: rgba(192, 138, 46, 0.10);
+  --gold-15: rgba(192, 138, 46, 0.15);
+  --gold-20: rgba(192, 138, 46, 0.20);
+  --gold-30: rgba(192, 138, 46, 0.30);
+  --gold-40: rgba(192, 138, 46, 0.40);
 
   /* Typography */
-  --font-display: 'DM Serif Display', Georgia, serif;
+  --font-display: 'Fraunces', 'Marcellus', Georgia, serif;
   --font-body: 'Inter', system-ui, -apple-system, sans-serif;
 
   /* Type scale */
@@ -126,7 +140,7 @@ body::before {
 
 /* Focus rings */
 :focus-visible {
-  outline: 2px solid var(--signal);
+  outline: 2px solid var(--gold);
   outline-offset: 2px;
   border-radius: var(--r-sm);
 }
@@ -138,7 +152,7 @@ body::before {
   left: 0;
   height: 2px;
   width: 0%;
-  background: var(--signal);
+  background: linear-gradient(90deg, var(--signal) 0%, var(--gold) 100%);
   z-index: 9999;
   transition: width 0.1s linear;
 }
@@ -146,6 +160,7 @@ body::before {
 /* Shared container & section layout */
 .section {
   padding: var(--sp-24) 0;
+  position: relative;
 }
 
 .container {
@@ -160,10 +175,10 @@ body::before {
 
 .section-label {
   font-size: var(--text-xs);
-  font-weight: 500;
-  letter-spacing: 0.1em;
+  font-weight: 600;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--signal);
+  color: var(--gold);
   margin-bottom: var(--sp-3);
   display: block;
 }
@@ -175,19 +190,45 @@ body::before {
 }
 
 .section-label-row .icon {
-  color: var(--signal);
+  color: var(--gold);
 }
 
 .section-title {
-  font-family: var(--font-body);
-  font-size: var(--text-2xl);
-  font-weight: 600;
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 3.5vw, var(--text-4xl));
+  font-weight: 500;
   color: var(--chalk);
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   line-height: 1.2;
   position: relative;
   display: inline-block;
   padding-bottom: var(--sp-3);
+}
+
+/* ── Shiny Text Gradient Sweep (AnimMasterLib style) ── */
+.shiny-text {
+  background: linear-gradient(
+    110deg,
+    #ECEFF5 0%,
+    #ECEFF5 30%,
+    #F4E2BB 45%,
+    #C08A2E 55%,
+    #ECEFF5 70%,
+    #ECEFF5 100%
+  );
+  background-size: 220% 100%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: shine-sweep 7s ease-in-out infinite;
+}
+
+@keyframes shine-sweep {
+  0%, 20% {
+    background-position: 100% 0;
+  }
+  60%, 100% {
+    background-position: -100% 0;
+  }
 }
 
 .section-title::after {
@@ -197,8 +238,30 @@ body::before {
   left: 0;
   right: 0;
   height: 1px;
-  background: var(--ash-15);
+  background: linear-gradient(90deg, var(--signal) 0%, var(--gold-30) 60%, transparent 100%);
   transform-origin: left;
+}
+
+/* ── Traditional Nepali Dhaka Weave Section Divider ── */
+.dhaka-divider {
+  width: 100%;
+  height: 4px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='4' viewBox='0 0 16 4'%3E%3Cpath d='M0 2 L4 0 L8 2 L4 4 Z M8 2 L12 0 L16 2 L12 4 Z' fill='none' stroke='%23B33A3A' stroke-width='0.75' opacity='0.35'/%3E%3Ccircle cx='4' cy='2' r='0.5' fill='%23C08A2E' opacity='0.45'/%3E%3Ccircle cx='12' cy='2' r='0.5' fill='%23C08A2E' opacity='0.45'/%3E%3C/svg%3E");
+  background-repeat: repeat-x;
+  background-position: center;
+  background-size: 16px 4px;
+  border: none;
+  opacity: 0.85;
+}
+
+/* ── Border Beam Animation (VengenceUI style) ── */
+@keyframes border-beam {
+  0% {
+    offset-distance: 0%;
+  }
+  100% {
+    offset-distance: 100%;
+  }
 }
 
 /* Scroll reveals */
@@ -286,18 +349,28 @@ body::before {
 .btn-primary {
   background: var(--signal);
   color: var(--chalk);
+  border: 1px solid rgba(192, 138, 46, 0.25);
+  box-shadow: 0 4px 18px -4px rgba(179, 58, 58, 0.4);
 }
 
 .btn-primary::before {
-  background: rgba(255, 255, 255, 0.12);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.12), rgba(192, 138, 46, 0.2));
+}
+
+.btn-primary:hover {
+  background: var(--signal-hover);
+  border-color: var(--gold);
+  box-shadow: 0 6px 22px -2px rgba(179, 58, 58, 0.55), 0 0 12px rgba(192, 138, 46, 0.2);
 }
 
 .btn-primary svg {
   transition: transform 0.25s var(--ease-out);
+  color: var(--chalk);
 }
 
 .btn-primary:hover svg {
   transform: translateX(3px);
+  color: var(--gold-hover);
 }
 
 .btn-ghost {
@@ -307,12 +380,13 @@ body::before {
 }
 
 .btn-ghost::before {
-  background: var(--ash-10);
+  background: var(--gold-10);
 }
 
 .btn-ghost:hover {
   color: var(--chalk);
-  border-color: var(--ash-30);
+  border-color: var(--gold);
+  box-shadow: 0 4px 14px -2px rgba(192, 138, 46, 0.18);
 }
 
 .btn svg {

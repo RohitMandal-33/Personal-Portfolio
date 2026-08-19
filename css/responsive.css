@@ -49,6 +49,11 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
+  .skills-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--sp-3);
+  }
+
   .skills-grid {
     grid-template-columns: 1fr;
     gap: var(--sp-6);
@@ -63,6 +68,11 @@
     display: flex;
     gap: var(--sp-3);
     align-items: baseline;
+  }
+
+  .experience-list::before,
+  .exp-item::after {
+    display: none;
   }
 }
 

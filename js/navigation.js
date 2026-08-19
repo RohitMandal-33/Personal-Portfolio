@@ -1,5 +1,4 @@
 /**
- * Navigation, Scroll Spy & Progress Indicator
  * Rohit Mandal — Portfolio
  */
 
@@ -36,9 +35,9 @@ export function updateActiveNav() {
 }
 
 export function initNavigation() {
-  const navbar    = document.getElementById('navbar');
+  const navbar = document.getElementById('navbar');
   const hamburger = document.getElementById('hamburger');
-  const navMenu   = document.getElementById('nav-menu');
+  const navMenu = document.getElementById('nav-menu');
 
   if (!navbar) return;
 

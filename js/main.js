@@ -8,12 +8,16 @@ import { initTerminal } from './terminal.js';
 import { initAvatarDock } from './avatar-dock.js';
 import { initNavigation } from './navigation.js';
 import { initTickerFilter } from './ticker.js';
+import { initParticles } from './particles.js';
+import { initMagneticButtons } from './magnetic.js';
+import { initStatsCounter } from './counter.js';
 import {
   initScrollReveal,
   initCardTilt,
   initExperienceAccordion,
   initCopyEmail,
   initHeroSpotlight,
+  initHeroParallax,
   initBackToTop,
   initMoonEasterEgg,
 } from './ui-effects.js';
@@ -29,6 +33,10 @@ document.addEventListener('DOMContentLoaded', () => {
   initExperienceAccordion();
   initCopyEmail();
   initHeroSpotlight(reducedMotion);
+  initHeroParallax(reducedMotion);
+  initParticles(reducedMotion);
+  initMagneticButtons(reducedMotion);
+  initStatsCounter();
   initAvatarDock(reducedMotion);
   initMoonEasterEgg();
   initBackToTop();

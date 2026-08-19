@@ -9,6 +9,7 @@
 }
 
 .project-card {
+  position: relative;
   background: var(--slate);
   border: 1px solid var(--ash-15);
   border-radius: var(--r-lg);
@@ -20,7 +21,7 @@
   opacity: 0;
   transform: translateY(12px);
   transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), border-color 0.22s ease,
-    box-shadow 0.22s ease, filter 0.25s ease;
+    box-shadow 0.25s ease, filter 0.25s ease;
   transform-style: preserve-3d;
   will-change: transform;
 }
@@ -30,9 +31,71 @@
   transform: translateY(0);
 }
 
+/* ── Border Beam Glow (VengenceUI style) ── */
+.project-card::before {
+  content: '';
+  position: absolute;
+  inset: -1px;
+  border-radius: inherit;
+  padding: 1.5px;
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(179, 58, 58, 0.8) 40%,
+    rgba(192, 138, 46, 0.9) 60%,
+    transparent 100%
+  );
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+  background-size: 200% 200%;
+  animation: border-beam-sweep 3.5s linear infinite;
+  z-index: 5;
+}
+
+.project-card:hover::before {
+  opacity: 1;
+}
+
+/* ── Mouse-Following Spotlight (VengenceUI Spotlight Card) ── */
+.project-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    280px circle at var(--card-mouse-x, 50%) var(--card-mouse-y, 50%),
+    rgba(179, 58, 58, 0.16),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+
+.project-card:hover::after {
+  opacity: 1;
+}
+
+@keyframes border-beam-sweep {
+  0% {
+    background-position: 0% 0%;
+  }
+  50% {
+    background-position: 100% 100%;
+  }
+  100% {
+    background-position: 0% 0%;
+  }
+}
+
 .project-card:hover {
-  border-color: var(--signal-30);
-  box-shadow: 0 8px 32px -8px rgba(61, 124, 244, 0.15);
+  border-color: rgba(192, 138, 46, 0.45);
+  box-shadow: 0 12px 36px -10px rgba(179, 58, 58, 0.25), 0 0 0 1px rgba(192, 138, 46, 0.2);
 }
 
 /* Dimmed state when a ticker filter doesn't match this card */
@@ -78,7 +141,7 @@
 .project-card:hover .project-img-wrap::after {
   background: linear-gradient(to bottom,
       rgba(14, 15, 17, 0.1) 0%,
-      rgba(61, 124, 244, 0.18) 50%,
+      rgba(179, 58, 58, 0.2) 50%,
       rgba(14, 15, 17, 0.55) 100%);
 }
 
@@ -91,16 +154,16 @@
   display: flex;
   align-items: center;
   gap: 5px;
-  background: rgba(14, 15, 17, 0.65);
+  background: rgba(14, 15, 17, 0.75);
   backdrop-filter: blur(6px);
-  border: 1px solid rgba(255, 255, 255, 0.12);
+  border: 1px solid rgba(192, 138, 46, 0.3);
   border-radius: var(--r-md);
   padding: 4px 9px;
   font-size: 10px;
   font-weight: 600;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: #34D399;
+  color: var(--gold);
   opacity: 0;
   transform: translateY(-4px);
   transition: opacity 0.25s ease, transform 0.25s ease;
@@ -123,6 +186,8 @@
 }
 
 .project-card-body {
+  position: relative;
+  z-index: 2;
   padding: var(--sp-5);
   display: flex;
   flex-direction: column;
@@ -156,12 +221,13 @@
   border-radius: var(--r-md);
   border: 1px solid var(--ash-15);
   color: var(--ash);
-  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s var(--ease-out);
+  transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s var(--ease-out), background 0.2s ease;
 }
 
 .project-link-icon:hover {
-  color: var(--chalk);
-  border-color: var(--ash-30);
+  color: var(--gold);
+  border-color: var(--gold);
+  background: var(--gold-10);
   transform: rotate(8deg) scale(1.08);
 }
 
@@ -205,10 +271,11 @@
 .stack-tag .icon {
   width: 11px;
   height: 11px;
-  color: var(--signal);
+  color: var(--gold);
   flex-shrink: 0;
 }
 
 .project-card:hover .stack-tag {
-  border-color: var(--ash-20);
+  border-color: rgba(192, 138, 46, 0.3);
+  color: var(--chalk);
 }

@@ -5,8 +5,8 @@
 
 export function initScrollReveal() {
   const revealOptions = {
-    threshold: 0.12,
-    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.05,
+    rootMargin: '0px 0px 40px 0px',
   };
 
   const revealObserver = new IntersectionObserver((entries) => {
@@ -18,27 +18,11 @@ export function initScrollReveal() {
     });
   }, revealOptions);
 
-  const cardOptions = {
-    threshold: 0.08,
-    rootMargin: '0px 0px -24px 0px',
-  };
-
-  const cardObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        cardObserver.unobserve(entry.target);
-      }
-    });
-  }, cardOptions);
-
-  document.querySelectorAll('.reveal, .reveal-x').forEach((el) => {
+  document.querySelectorAll('.reveal, .reveal-x, .project-card, .skill-group').forEach((el, i) => {
+    if (el.classList.contains('project-card')) {
+      el.style.transitionDelay = `${(i % 3) * 40}ms`;
+    }
     revealObserver.observe(el);
-  });
-
-  document.querySelectorAll('.project-card').forEach((card, i) => {
-    card.style.transitionDelay = `${i * 60}ms`;
-    cardObserver.observe(card);
   });
 }
 
@@ -50,11 +34,17 @@ export function initCardTilt(reducedMotion = false) {
     card.addEventListener('pointermove', (e) => {
       if (e.pointerType === 'touch') return;
       const rect = card.getBoundingClientRect();
-      const x = (e.clientX - rect.left) / rect.width - 0.5;
-      const y = (e.clientY - rect.top) / rect.height - 0.5;
-      const rotateX = (-y * 5).toFixed(2);
-      const rotateY = (x * 5).toFixed(2);
-      card.style.transform = `translateY(-2px) perspective(800px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+
+      card.style.setProperty('--card-mouse-x', `${x.toFixed(1)}px`);
+      card.style.setProperty('--card-mouse-y', `${y.toFixed(1)}px`);
+
+      const normX = x / rect.width - 0.5;
+      const normY = y / rect.height - 0.5;
+      const rotateX = (-normY * 4).toFixed(2);
+      const rotateY = (normX * 4).toFixed(2);
+      card.style.transform = `translateY(-3px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
     });
 
     card.addEventListener('pointerleave', () => {
@@ -176,4 +166,26 @@ export function initMoonEasterEgg() {
       }, 4000);
     }
   });
+}
+
+export function initHeroParallax(reducedMotion = false) {
+  if (reducedMotion) return;
+  const heroPhotoWrap = document.getElementById('hero-image');
+  if (!heroPhotoWrap) return;
+
+  window.addEventListener(
+    'scroll',
+    () => {
+      const scrollY = window.scrollY;
+      if (scrollY < 800) {
+        const translateY = scrollY * 0.12;
+        const opacity = Math.max(1 - scrollY / 700, 0.4);
+        if (!heroPhotoWrap.classList.contains('is-docking')) {
+          heroPhotoWrap.style.transform = `translate3d(0, ${translateY.toFixed(1)}px, 0)`;
+          heroPhotoWrap.style.opacity = opacity.toFixed(2);
+        }
+      }
+    },
+    { passive: true }
+  );
 }
