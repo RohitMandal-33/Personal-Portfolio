@@ -1,0 +1,373 @@
+/* =============================================
+   HERO & TERMINAL OVERLAY
+   ============================================= */
+
+/* ── Terminal Intro Overlay ── */
+#terminal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10000;
+  background: var(--ink);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: transform 0.35s cubic-bezier(0.76, 0, 0.24, 1);
+  cursor: pointer;
+}
+
+#terminal-overlay.exit {
+  transform: translateY(-100%);
+}
+
+.terminal-window {
+  width: min(560px, calc(100vw - 48px));
+}
+
+.terminal-lines {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+}
+
+.terminal-line {
+  font-family: 'SF Mono', 'Fira Code', 'Cascadia Code', monospace;
+  font-size: var(--text-sm);
+  font-weight: 400;
+  color: var(--ash);
+  opacity: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  transition: opacity 0.15s ease;
+}
+
+.terminal-line.visible {
+  opacity: 1;
+}
+
+.terminal-line .prompt {
+  color: var(--signal);
+  margin-right: var(--sp-2);
+}
+
+.terminal-line .content {
+  color: var(--chalk);
+}
+
+.terminal-line .cursor {
+  display: inline-block;
+  width: 8px;
+  height: 1em;
+  background: var(--signal);
+  vertical-align: text-bottom;
+  margin-left: 2px;
+  animation: blink 0.8s step-end infinite;
+}
+
+.terminal-line.done .cursor {
+  display: none;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ── Hero Section ── */
+.hero {
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--nav-h);
+  overflow: hidden;
+}
+
+/* Cursor-tracked spotlight */
+.hero::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: radial-gradient(320px circle at var(--spot-x, 50%) var(--spot-y, 40%),
+      rgba(61, 124, 244, 0.10), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.hero.spotlight-on::after {
+  opacity: 1;
+}
+
+/* Ambient orb layer */
+.hero-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.hero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(72px);
+  opacity: 0.9;
+  transition: background 0.6s ease, filter 0.6s ease;
+}
+
+.hero-orb-1 {
+  width: 520px;
+  height: 520px;
+  background: radial-gradient(circle at 40% 50%, rgba(61, 124, 244, 0.22) 0%, transparent 65%);
+  top: -140px;
+  right: -60px;
+  animation: orb-drift-1 18s ease-in-out infinite;
+}
+
+.hero-orb-2 {
+  width: 380px;
+  height: 380px;
+  background: radial-gradient(circle, rgba(61, 124, 244, 0.12) 0%, transparent 65%);
+  bottom: -80px;
+  left: -40px;
+  animation: orb-drift-2 24s ease-in-out infinite;
+}
+
+.hero-orb-3 {
+  width: 260px;
+  height: 260px;
+  background: radial-gradient(circle, rgba(100, 160, 255, 0.10) 0%, transparent 65%);
+  top: 50%;
+  left: 42%;
+  transform: translate(-50%, -50%);
+  animation: orb-drift-3 30s ease-in-out infinite;
+}
+
+/* Easter-egg state */
+body.to-the-moon .hero-orb-1 {
+  background: radial-gradient(circle at 40% 50%, rgba(52, 211, 153, 0.30) 0%, transparent 65%);
+}
+
+body.to-the-moon .hero-orb-2 {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.20) 0%, transparent 65%);
+}
+
+body.to-the-moon .hero-orb-3 {
+  background: radial-gradient(circle, rgba(52, 211, 153, 0.18) 0%, transparent 65%);
+}
+
+@keyframes orb-drift-1 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  30% { transform: translate(-28px, 36px) scale(1.06); }
+  65% { transform: translate(20px, -24px) scale(0.95); }
+}
+
+@keyframes orb-drift-2 {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  40% { transform: translate(32px, -40px) scale(1.08); }
+  70% { transform: translate(-16px, 28px) scale(0.94); }
+}
+
+@keyframes orb-drift-3 {
+  0%, 100% { transform: translate(-50%, -50%) scale(1); }
+  50% { transform: translate(calc(-50% + 24px), calc(-50% - 32px)) scale(1.12); }
+}
+
+.hero-inner {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: var(--sp-16) var(--sp-6);
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: var(--sp-12);
+  align-items: center;
+}
+
+/* Hero text stagger targets */
+.hero-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--signal);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: var(--sp-4);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+}
+
+.hero-tag .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--signal);
+  animation: pulse-dot 2s ease-in-out infinite;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { box-shadow: 0 0 0 0 var(--signal-30); }
+  50% { box-shadow: 0 0 0 5px transparent; }
+}
+
+.hero-name {
+  font-family: var(--font-display);
+  font-size: clamp(3rem, 6vw, var(--text-7xl));
+  font-weight: 400;
+  line-height: 1.05;
+  letter-spacing: -0.02em;
+  color: var(--chalk);
+  margin-bottom: var(--sp-5);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+}
+
+.hero-statement {
+  font-size: var(--text-lg);
+  font-weight: 300;
+  color: var(--ash);
+  line-height: 1.55;
+  max-width: 44ch;
+  margin-bottom: var(--sp-8);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+}
+
+.hero-statement strong {
+  color: var(--chalk);
+  font-weight: 500;
+}
+
+.hero-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-8);
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+}
+
+.hero-socials {
+  display: flex;
+  gap: var(--sp-4);
+  opacity: 0;
+  transform: translateY(-10px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+}
+
+.social-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--text-sm);
+  color: var(--ash);
+  transition: color 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.social-link:hover {
+  color: var(--chalk);
+  transform: translateY(-2px);
+}
+
+.social-link svg {
+  width: 16px;
+  height: 16px;
+}
+
+/* Hero image & morphing photo */
+.hero-image-wrap {
+  opacity: 0;
+  transform: translateY(-12px);
+  transition: opacity 0.4s ease, transform 0.4s var(--ease-out);
+  position: relative;
+}
+
+.hero-photo {
+  width: 100%;
+  aspect-ratio: 3/4;
+  object-fit: cover;
+  object-position: center top;
+  border-radius: var(--r-xl);
+  border: 1px solid var(--ash-15);
+  display: block;
+  transform-origin: center center;
+  transition: transform 0.4s var(--ease-out), border-color 0.4s ease;
+}
+
+.hero-photo.is-flying {
+  position: relative;
+  z-index: 1100;
+  pointer-events: none;
+  will-change: transform, border-radius, filter, box-shadow;
+  transition: none;
+}
+
+.hero-photo.is-docked {
+  opacity: 0;
+  visibility: hidden;
+  box-shadow: none;
+}
+
+.hero-image-wrap.is-docking .hero-image-badge {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.hero-image-wrap.is-docking:hover .hero-photo {
+  transform: none;
+  border-color: var(--ash-15);
+}
+
+.hero-image-wrap:hover .hero-photo {
+  transform: translateY(-4px);
+  border-color: var(--signal-30);
+}
+
+/* Status chip badge on photo corner */
+.hero-image-badge {
+  position: absolute;
+  bottom: -14px;
+  left: -14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--slate);
+  border: 1px solid var(--ash-20);
+  border-radius: var(--r-lg);
+  padding: 8px 12px;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  color: var(--chalk);
+  box-shadow: 0 10px 30px -8px rgba(0, 0, 0, 0.5);
+  opacity: 0;
+  transform: translateY(6px) scale(0.9);
+  transition: opacity 0.35s var(--ease-out) 0.5s, transform 0.35s var(--ease-out) 0.5s;
+}
+
+.hero-image-wrap.hero-reveal .hero-image-badge {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+}
+
+.hero-image-badge svg {
+  width: 14px;
+  height: 14px;
+  color: #34D399;
+  flex-shrink: 0;
+}
+
+/* Reveal class — JS adds when overlay exits */
+.hero-reveal {
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}

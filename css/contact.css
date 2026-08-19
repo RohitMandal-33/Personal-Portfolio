@@ -1,0 +1,137 @@
+/* =============================================
+   CONTACT SECTION
+   ============================================= */
+
+.contact-section {
+  padding: var(--sp-24) 0;
+  border-top: 1px solid var(--ash-10);
+}
+
+.contact-inner {
+  max-width: 600px;
+  margin: 0 auto;
+  text-align: center;
+  padding: 0 var(--sp-6);
+}
+
+.contact-headline {
+  font-family: var(--font-display);
+  font-size: clamp(2rem, 4vw, var(--text-6xl));
+  font-weight: 400;
+  color: var(--chalk);
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin-bottom: var(--sp-4);
+}
+
+.contact-sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-base);
+  color: var(--ash);
+  line-height: 1.6;
+  margin-bottom: var(--sp-8);
+}
+
+.contact-sub .contact-sub-line {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.contact-sub .icon {
+  color: var(--signal);
+}
+
+.contact-email-row {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-3);
+  margin-bottom: var(--sp-8);
+}
+
+.contact-email {
+  display: inline-block;
+  font-size: var(--text-lg);
+  font-weight: 500;
+  color: var(--chalk);
+  border-bottom: 1px solid var(--ash-30);
+  padding-bottom: 2px;
+  transition: color 0.2s ease, border-color 0.2s ease;
+}
+
+.contact-email:hover {
+  color: var(--signal);
+  border-color: var(--signal);
+}
+
+.copy-email-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  border: 1px solid var(--ash-20);
+  color: var(--ash);
+  transition: color 0.2s ease, border-color 0.2s ease, background 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.copy-email-btn:hover {
+  color: var(--chalk);
+  border-color: var(--signal-30);
+  background: var(--signal-10);
+}
+
+.copy-email-btn.copied {
+  color: #34D399;
+  border-color: rgba(52, 211, 153, 0.4);
+  background: rgba(52, 211, 153, 0.1);
+  transform: scale(1.1);
+}
+
+.copy-email-btn svg {
+  width: 14px;
+  height: 14px;
+}
+
+.copy-email-btn .icon-check {
+  display: none;
+}
+
+.copy-email-btn.copied .icon-copy {
+  display: none;
+}
+
+.copy-email-btn.copied .icon-check {
+  display: block;
+}
+
+.contact-links {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sp-6);
+}
+
+.contact-link {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--text-sm);
+  color: var(--ash);
+  transition: color 0.2s ease, transform 0.2s var(--ease-out);
+}
+
+.contact-link:hover {
+  color: var(--chalk);
+  transform: translateY(-2px);
+}
+
+.contact-link svg {
+  width: 16px;
+  height: 16px;
+}

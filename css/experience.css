@@ -1,0 +1,151 @@
+/* =============================================
+   EXPERIENCE SECTION (ACCORDION)
+   ============================================= */
+
+.experience-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+
+.exp-item {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  gap: var(--sp-8);
+  padding: var(--sp-8) 0;
+  border-bottom: 1px solid var(--ash-10);
+}
+
+.exp-item:first-child {
+  padding-top: 0;
+}
+
+.exp-item:last-child {
+  border-bottom: none;
+}
+
+.exp-meta {
+  padding-top: 2px;
+}
+
+.exp-date {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-xs);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ash);
+  line-height: 1.4;
+}
+
+.exp-date .icon {
+  color: var(--signal);
+  opacity: 0.8;
+}
+
+.exp-location {
+  font-size: var(--text-xs);
+  color: var(--ash);
+  opacity: 0.6;
+  margin-top: var(--sp-1);
+}
+
+.exp-role-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--sp-3);
+  cursor: pointer;
+}
+
+.exp-role {
+  font-size: var(--text-base);
+  font-weight: 600;
+  color: var(--chalk);
+  margin-bottom: 2px;
+}
+
+.exp-toggle {
+  flex-shrink: 0;
+  width: 26px;
+  height: 26px;
+  border-radius: 50%;
+  border: 1px solid var(--ash-20);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--ash);
+  transition: transform 0.3s var(--ease-out), color 0.2s ease, border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.exp-role-row:hover .exp-toggle {
+  color: var(--chalk);
+  border-color: var(--signal-30);
+  background: var(--signal-10);
+}
+
+.exp-item.expanded .exp-toggle {
+  transform: rotate(180deg);
+  color: var(--signal);
+  border-color: var(--signal-30);
+}
+
+.exp-toggle svg {
+  width: 12px;
+  height: 12px;
+}
+
+.exp-company {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--text-sm);
+  color: var(--signal);
+  margin-bottom: var(--sp-3);
+  font-weight: 400;
+}
+
+.exp-company .icon {
+  width: 12px;
+  height: 12px;
+}
+
+.exp-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s var(--ease-out);
+}
+
+.exp-item.expanded .exp-list {
+  max-height: 320px;
+}
+
+.exp-list li {
+  font-size: var(--text-sm);
+  color: var(--ash);
+  line-height: 1.65;
+  padding-left: var(--sp-4);
+  position: relative;
+}
+
+.exp-list li::before {
+  content: '–';
+  position: absolute;
+  left: 0;
+  color: var(--ash);
+  opacity: 0.4;
+}
+
+.exp-list li:first-child {
+  padding-top: 2px;
+}
+
+.exp-list li:last-child {
+  padding-bottom: 4px;
+}
