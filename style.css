@@ -288,11 +288,23 @@ body::before {
   flex-shrink: 0;
   opacity: 0;
   pointer-events: none;
+  transition: opacity 0.35s var(--ease-out);
 }
 
 .navbar.avatar-docked .nav-avatar {
   opacity: 1;
   pointer-events: auto;
+}
+
+/* Ring-pulse when photo lands in the navbar */
+@keyframes avatar-arrive {
+  0%   { box-shadow: 0 0 0 0   rgba(61, 124, 244, 0.85), 0 0 0 0   rgba(61, 124, 244, 0.25); }
+  35%  { box-shadow: 0 0 0 3px rgba(61, 124, 244, 0.50), 0 0 0 7px rgba(61, 124, 244, 0.12); }
+  100% { box-shadow: 0 0 0 10px rgba(61, 124, 244, 0),   0 0 0 20px rgba(61, 124, 244, 0);   }
+}
+
+.nav-avatar.avatar-arrived {
+  animation: avatar-arrive 0.7s var(--ease-out) forwards;
 }
 
 .nav-wordmark {
@@ -643,9 +655,9 @@ body.to-the-moon .hero-orb-3 {
   position: relative;
   z-index: 1100;
   pointer-events: none;
-  will-change: transform, border-radius, opacity;
+  /* box-shadow and filter are driven dynamically by JS */
+  will-change: transform, border-radius, filter, box-shadow;
   transition: none;
-  box-shadow: 0 12px 40px -12px rgba(0, 0, 0, 0.55);
 }
 
 .hero-photo.is-docked {

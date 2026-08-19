@@ -228,37 +228,67 @@
   }
 
   /* ──────────────────────────────────────────
-     AVATAR DOCK — hero photo shrinks into the
-     navbar beside the name on scroll
+     AVATAR DOCK — hero photo morphs into the
+     navbar avatar as user scrolls
+     v2: easeOutExpo · arc path · glow trail
+         · cached layout · arrival ring
   ────────────────────────────────────────── */
   function initAvatarDock() {
-    const photo = document.querySelector('.hero-photo');
-    const wrap = document.getElementById('hero-image');
-    const dest = document.getElementById('nav-avatar');
+    const photo  = document.querySelector('.hero-photo');
+    const wrap   = document.getElementById('hero-image');
+    const dest   = document.getElementById('nav-avatar');
     const navbar = document.getElementById('navbar');
-    const hero = document.getElementById('home');
+    const hero   = document.getElementById('home');
 
     if (!photo || !wrap || !dest || !navbar || !hero) return;
 
-    const easeOutCubic = (t) => 1 - Math.pow(1 - t, 3);
+    /* ── Easings ─────────────────────────────────────── */
+    // easeOutExpo: very fast start, crisp deceleration — perfect for "docking"
+    const easeOutExpo = (t) => t >= 1 ? 1 : 1 - Math.pow(2, -10 * t);
     const lerp = (a, b, t) => a + (b - a) * t;
 
-    let ticking = false;
+    /* ── Cached layout ────────────────────────────────
+       We store the wrap's document-absolute position once
+       and derive the viewport position each frame using
+       window.scrollY — avoids a costly getBoundingClientRect
+       call inside the hot rAF loop.
+    ─────────────────────────────────────────────────── */
+    let destRect = null;         // nav avatar is fixed → viewport-stable
+    let wrapDocX = 0, wrapDocY = 0, wrapW = 0, wrapH = 0;
+
+    function cacheRects() {
+      const wr  = wrap.getBoundingClientRect();
+      wrapDocX  = wr.left  + window.scrollX;
+      wrapDocY  = wr.top   + window.scrollY;
+      wrapW     = wr.width;
+      wrapH     = wr.height;
+      destRect  = dest.getBoundingClientRect(); // fixed navbar → stable
+    }
+
+    /* ── State ──────────────────────────────────────── */
+    let ticking   = false;
+    let prevRaw   = -1;
+    let hasLanded = false;
 
     function clearFlight() {
-      photo.style.transform = '';
+      photo.style.transform    = '';
       photo.style.borderRadius = '';
+      photo.style.filter       = '';
+      photo.style.boxShadow    = '';
       photo.classList.remove('is-flying', 'is-docked');
       wrap.classList.remove('is-docking');
       navbar.classList.remove('avatar-docked');
+      hasLanded = false;
+      prevRaw   = -1;
     }
 
     function update() {
       ticking = false;
 
-      const range = Math.max(220, hero.offsetHeight * 0.45);
-      const raw = Math.min(1, Math.max(0, window.scrollY / range));
+      const range = Math.max(260, hero.offsetHeight * 0.48);
+      const raw   = Math.min(1, Math.max(0, window.scrollY / range));
 
+      /* Reduced-motion: instant snap, no animation */
       if (reducedMotion) {
         if (raw > 0.35) {
           photo.classList.add('is-docked');
@@ -271,40 +301,68 @@
         return;
       }
 
-      if (raw <= 0.001) {
-        clearFlight();
-        return;
-      }
+      if (raw <= 0.001) { clearFlight(); return; }
 
-      const t = easeOutCubic(raw);
-      const start = wrap.getBoundingClientRect();
-      const end = dest.getBoundingClientRect();
+      /* Lazy-cache on first use */
+      if (!destRect) cacheRects();
+      const dr = destRect;
+      if (!dr || wrapW < 8 || dr.width < 8) return;
 
-      if (start.width < 8 || end.width < 8) return;
+      const t = easeOutExpo(raw);
 
-      const startCX = start.left + start.width / 2;
-      const startCY = start.top + start.height / 2;
-      const endCX = end.left + end.width / 2;
-      const endCY = end.top + end.height / 2;
+      /* ── Viewport-relative source center (zero layout reads) ── */
+      const sCX = wrapDocX - window.scrollX + wrapW / 2;
+      const sCY = wrapDocY - window.scrollY + wrapH / 2;
+      const eCX = dr.left + dr.width  / 2;
+      const eCY = dr.top  + dr.height / 2;
 
-      const dx = (endCX - startCX) * t;
-      const dy = (endCY - startCY) * t;
-      const scaleX = lerp(1, end.width / start.width, t);
-      const scaleY = lerp(1, end.height / start.height, t);
-      const radius = lerp(12, Math.min(end.width, end.height) / 2, t);
+      /* ── Transform ──────────────────────────────────────────── */
+      const scaleX = lerp(1, dr.width  / wrapW, t);
+      const scaleY = lerp(1, dr.height / wrapH, t);
+      const radius = lerp(12, Math.min(dr.width, dr.height) / 2, t);
 
-      wrap.classList.add('is-docking');
+      // Sine-bow arc: peaks at raw = 0.5, zero at both ends
+      const arcY = Math.sin(raw * Math.PI) * -14;
+
+      const dx = (eCX - sCX) * t;
+      const dy = (eCY - sCY) * t + arcY;
+
+      /* ── Mid-flight glow (peaks at raw = 0.5) ──────────────── */
+      const glow   = Math.sin(raw * Math.PI);            // 0 → 1 → 0
+      const blur   = (glow * 0.9).toFixed(2);            // max 0.9px
+      const bright = (1 + glow * 0.08).toFixed(3);       // max +8% brightness
+      const glowA  = (glow * 0.48).toFixed(3);
+      const glowPx = Math.round(glow * 16);
+
+      /* ── Apply (compositor-only properties) ────────────────── */
       photo.classList.add('is-flying');
-      photo.style.transform = `translate(${dx}px, ${dy}px) scale(${scaleX}, ${scaleY})`;
-      photo.style.borderRadius = radius + 'px';
+      wrap.classList.add('is-docking');
+      photo.style.transform    = `translate(${dx}px, ${dy}px) scale(${scaleX}, ${scaleY})`;
+      photo.style.borderRadius = `${radius}px`;
+      photo.style.filter       = `brightness(${bright}) blur(${blur}px)`;
+      photo.style.boxShadow    = [
+        `0 ${glowPx}px ${glowPx * 2}px -${Math.round(glowPx / 2)}px rgba(61,124,244,${glowA})`,
+        `0 6px 24px -6px rgba(0,0,0,0.45)`,
+      ].join(', ');
 
+      /* ── Landing ─────────────────────────────────────────────── */
       if (t >= 0.96) {
+        if (!hasLanded) {
+          hasLanded = true;
+          // Trigger the CSS ring-pulse on the nav avatar exactly once
+          dest.classList.remove('avatar-arrived');
+          void dest.offsetWidth;              // force reflow to restart animation
+          dest.classList.add('avatar-arrived');
+        }
         photo.classList.add('is-docked');
         navbar.classList.add('avatar-docked');
       } else {
         photo.classList.remove('is-docked');
         navbar.classList.remove('avatar-docked');
+        if (prevRaw >= 0.96) hasLanded = false; // user scrolled back up
       }
+
+      prevRaw = raw;
     }
 
     function requestUpdate() {
@@ -313,8 +371,14 @@
       requestAnimationFrame(update);
     }
 
+    /* Invalidate cached rects when the page is resized */
+    const ro = new ResizeObserver(() => {
+      destRect = null;
+      requestUpdate();
+    });
+    ro.observe(document.documentElement);
+
     window.addEventListener('scroll', requestUpdate, { passive: true });
-    window.addEventListener('resize', requestUpdate);
     requestUpdate();
   }
 
