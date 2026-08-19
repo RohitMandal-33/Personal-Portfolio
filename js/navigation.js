@@ -69,14 +69,22 @@ export function initNavigation() {
     });
   }
 
-  // Smooth scroll for anchor links
+  // Smooth scroll for anchor links via Lenis
   document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-    anchor.addEventListener('click', (e) => {
+    anchor.addEventListener('click', async (e) => {
       const href = anchor.getAttribute('href');
       if (!href || href === '#') return;
       const target = document.querySelector(href);
       if (target) {
         e.preventDefault();
+        try {
+          const { getLenis } = await import('./motion.js');
+          const lenis = getLenis();
+          if (lenis) {
+            lenis.scrollTo(target, { offset: -20, duration: 1.2 });
+            return;
+          }
+        } catch (_) {}
         target.scrollIntoView({ behavior: 'smooth', block: 'start' });
       }
     });

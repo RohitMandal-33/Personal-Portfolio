@@ -4,53 +4,11 @@
  */
 
 export function initScrollReveal() {
-  const revealOptions = {
-    threshold: 0.05,
-    rootMargin: '0px 0px 40px 0px',
-  };
-
-  const revealObserver = new IntersectionObserver((entries) => {
-    entries.forEach((entry) => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
-        revealObserver.unobserve(entry.target);
-      }
-    });
-  }, revealOptions);
-
-  document.querySelectorAll('.reveal, .reveal-x, .project-card, .skill-group').forEach((el, i) => {
-    if (el.classList.contains('project-card')) {
-      el.style.transitionDelay = `${(i % 3) * 40}ms`;
-    }
-    revealObserver.observe(el);
-  });
+  // Handled by GSAP ScrollTrigger in motion.js
 }
 
-export function initCardTilt(reducedMotion = false) {
-  if (reducedMotion) return;
-  const cards = document.querySelectorAll('.project-card');
-
-  cards.forEach((card) => {
-    card.addEventListener('pointermove', (e) => {
-      if (e.pointerType === 'touch') return;
-      const rect = card.getBoundingClientRect();
-      const x = e.clientX - rect.left;
-      const y = e.clientY - rect.top;
-
-      card.style.setProperty('--card-mouse-x', `${x.toFixed(1)}px`);
-      card.style.setProperty('--card-mouse-y', `${y.toFixed(1)}px`);
-
-      const normX = x / rect.width - 0.5;
-      const normY = y / rect.height - 0.5;
-      const rotateX = (-normY * 4).toFixed(2);
-      const rotateY = (normX * 4).toFixed(2);
-      card.style.transform = `translateY(-3px) perspective(900px) rotateX(${rotateX}deg) rotateY(${rotateY}deg)`;
-    });
-
-    card.addEventListener('pointerleave', () => {
-      card.style.transform = '';
-    });
-  });
+export function initCardTilt() {
+  // Handled by GSAP 3D card tilt in motion.js
 }
 
 export function initExperienceAccordion() {

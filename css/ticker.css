@@ -74,6 +74,20 @@
   display: flex;
   width: max-content;
   animation: ticker-scroll 34s linear infinite;
+  -webkit-mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 70px,
+    black calc(100% - 70px),
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    to right,
+    transparent 0%,
+    black 70px,
+    black calc(100% - 70px),
+    transparent 100%
+  );
 }
 
 .ticker-strip:hover .ticker-track {

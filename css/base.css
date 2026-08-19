@@ -92,7 +92,6 @@
 }
 
 html {
-  scroll-behavior: smooth;
   font-size: 16px;
 }
 
@@ -264,27 +263,10 @@ body::before {
   }
 }
 
-/* Scroll reveals */
-.reveal {
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
-}
-
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* Scroll reveals (GSAP controlled with fallback) */
+.reveal,
 .reveal-x {
-  opacity: 0;
-  transform: translateX(-16px);
-  transition: opacity 0.45s var(--ease-out), transform 0.45s var(--ease-out);
-}
-
-.reveal-x.in-view {
-  opacity: 1;
-  transform: translateX(0);
+  will-change: transform, opacity;
 }
 
 /* Icons */

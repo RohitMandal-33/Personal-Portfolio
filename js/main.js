@@ -11,9 +11,8 @@ import { initTickerFilter } from './ticker.js';
 import { initParticles } from './particles.js';
 import { initMagneticButtons } from './magnetic.js';
 import { initStatsCounter } from './counter.js';
+import { initMotion } from './motion.js';
 import {
-  initScrollReveal,
-  initCardTilt,
   initExperienceAccordion,
   initCopyEmail,
   initHeroSpotlight,
@@ -27,8 +26,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
   injectTagIcons();
   initNavigation();
-  initScrollReveal();
-  initCardTilt(reducedMotion);
   initTickerFilter();
   initExperienceAccordion();
   initCopyEmail();
@@ -40,5 +37,6 @@ document.addEventListener('DOMContentLoaded', () => {
   initAvatarDock(reducedMotion);
   initMoonEasterEgg();
   initBackToTop();
-  initTerminal(reducedMotion); // Controls hero reveal sequence
+  initTerminal(reducedMotion);
+  initMotion(reducedMotion);
 });

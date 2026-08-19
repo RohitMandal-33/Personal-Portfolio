@@ -1,5 +1,5 @@
 /**
- * Hero Reveal Orchestrator
+ * Hero Reveal Orchestrator (compatibility module)
  * Rohit Mandal — Portfolio
  */
 
@@ -10,5 +10,5 @@ export function revealHero() {
 }
 
 export function initTerminal() {
-  revealHero();
+  // GSAP motion orchestrator in motion.js manages hero entrance
 }
