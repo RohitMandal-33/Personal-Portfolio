@@ -53,8 +53,10 @@
 }
 
 .stat-number .stat-val {
+  color: var(--chalk);
   background: linear-gradient(180deg, #ECEFF5 0%, #D8DCE6 100%);
   -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
 }
 

@@ -13,8 +13,8 @@ export function initStatsCounter() {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const el = entry.target;
-          const target = parseInt(el.getAttribute('data-target'), 10);
-          const duration = 1400;
+          const target = parseInt(el.getAttribute('data-target'), 10) || 0;
+          const duration = 1200;
           const startTime = performance.now();
 
           function updateCounter(currentTime) {
@@ -38,7 +38,7 @@ export function initStatsCounter() {
         }
       });
     },
-    { threshold: 0.3 }
+    { threshold: 0.1 }
   );
 
   statElements.forEach((el) => observer.observe(el));

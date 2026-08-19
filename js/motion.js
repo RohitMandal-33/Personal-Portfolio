@@ -11,25 +11,27 @@ let lenisInstance = null;
 /* ── Fallback Native IntersectionObserver Reveal ── */
 function initNativeScrollReveals() {
   const revealOptions = {
-    threshold: 0.08,
-    rootMargin: '0px 0px -40px 0px',
+    threshold: 0.05,
+    rootMargin: '0px 0px -20px 0px',
   };
 
   const observer = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (entry.isIntersecting) {
         entry.target.style.opacity = '1';
-        entry.target.style.transform = 'translate(0, 0) scale(1)';
+        entry.target.style.transform = 'none';
         observer.unobserve(entry.target);
       }
     });
   }, revealOptions);
 
   const targets = document.querySelectorAll(
-    '.reveal, .reveal-x, .project-card, .exp-item, .stat-card, .skill-group, .contact-inner'
+    '.section-header, .reveal, .reveal-x, .project-card, .exp-item, .stat-card, .skill-group, .contact-inner'
   );
 
-  targets.forEach((el, idx) => {
+  const uniqueTargets = Array.from(new Set(targets));
+
+  uniqueTargets.forEach((el) => {
     el.style.transition = 'opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1)';
     el.style.opacity = '0';
     if (el.classList.contains('reveal-x')) {
@@ -194,83 +196,91 @@ export async function initMotion(reducedMotion = false) {
       });
 
       // 4. Scroll-Triggered Reveals
-      gsap.utils.toArray('.section-header.reveal, .reveal').forEach((el) => {
+      // Standalone reveal elements (exclude children handled by staggered group triggers)
+      gsap.utils.toArray('.section-header, .reveal:not(.skills-stats):not(.skill-group):not(.exp-item):not(.stat-card):not(.project-card)').forEach((el) => {
         gsap.from(el, {
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          scrollTrigger: { trigger: el, start: 'top 90%', once: true },
           opacity: 0,
-          y: 25,
+          y: 20,
           duration: 0.5,
           ease: 'power3.out',
+          clearProps: 'opacity,transform',
         });
       });
 
-      gsap.utils.toArray('.reveal-x').forEach((el) => {
+      gsap.utils.toArray('.reveal-x:not(.exp-item)').forEach((el) => {
         gsap.from(el, {
-          scrollTrigger: { trigger: el, start: 'top 88%', once: true },
+          scrollTrigger: { trigger: el, start: 'top 90%', once: true },
           opacity: 0,
           x: -20,
           duration: 0.5,
           ease: 'power3.out',
+          clearProps: 'opacity,transform',
         });
       });
 
       const projectCards = gsap.utils.toArray('.project-card');
       if (projectCards.length) {
         gsap.from(projectCards, {
-          scrollTrigger: { trigger: '.projects-grid', start: 'top 85%', once: true },
+          scrollTrigger: { trigger: '.projects-grid', start: 'top 88%', once: true },
           opacity: 0,
-          y: 30,
-          duration: 0.5,
-          stagger: 0.08,
+          y: 25,
+          duration: 0.45,
+          stagger: 0.07,
           ease: 'power3.out',
+          clearProps: 'opacity,transform',
         });
       }
 
       const expItems = gsap.utils.toArray('.exp-item');
       if (expItems.length) {
         gsap.from(expItems, {
-          scrollTrigger: { trigger: '.experience-list', start: 'top 85%', once: true },
+          scrollTrigger: { trigger: '.experience-list', start: 'top 88%', once: true },
           opacity: 0,
-          y: 25,
+          y: 20,
           duration: 0.45,
           stagger: 0.07,
           ease: 'power3.out',
+          clearProps: 'opacity,transform',
         });
       }
 
       const statCards = gsap.utils.toArray('.stat-card');
       if (statCards.length) {
         gsap.from(statCards, {
-          scrollTrigger: { trigger: '.skills-stats', start: 'top 85%', once: true },
+          scrollTrigger: { trigger: '.skills-stats', start: 'top 88%', once: true },
           opacity: 0,
-          y: 20,
-          scale: 0.95,
+          y: 18,
+          scale: 0.96,
           duration: 0.4,
-          stagger: 0.06,
+          stagger: 0.05,
           ease: 'power3.out',
+          clearProps: 'opacity,transform',
         });
       }
 
       const skillGroups = gsap.utils.toArray('.skill-group');
       if (skillGroups.length) {
         gsap.from(skillGroups, {
-          scrollTrigger: { trigger: '.skills-grid', start: 'top 85%', once: true },
+          scrollTrigger: { trigger: '.skills-grid', start: 'top 88%', once: true },
           opacity: 0,
-          y: 25,
+          y: 20,
           duration: 0.45,
-          stagger: 0.08,
+          stagger: 0.06,
           ease: 'power3.out',
+          clearProps: 'opacity,transform',
         });
       }
 
       const contactInner = document.querySelector('.contact-inner');
       if (contactInner) {
         gsap.from(contactInner, {
-          scrollTrigger: { trigger: contactInner, start: 'top 85%', once: true },
+          scrollTrigger: { trigger: contactInner, start: 'top 88%', once: true },
           opacity: 0,
-          y: 30,
-          duration: 0.55,
+          y: 25,
+          duration: 0.5,
           ease: 'power3.out',
+          clearProps: 'opacity,transform',
         });
       }
 
